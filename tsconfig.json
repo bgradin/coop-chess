@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "moduleResolution": "node",
+    "target": "ES2017",
+    "module": "esnext",
+    "lib": ["DOM", "ES2019"],
+    "jsx": "react-jsx",
+    "jsxImportSource": "@herp-inc/snabbdom-jsx"
+  }
+}

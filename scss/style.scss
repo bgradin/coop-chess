@@ -1,0 +1,31 @@
+@import './bootstrap';
+@import './chessground.base';
+@import './chessground.transp';
+@import './chessground.cburnett';
+@import './game';
+@import './nav';
+
+body {
+  --board-color: '#f0d9b5';
+}
+
+.login {
+  .big {
+    font-size: 1.5rem;
+  }
+  & .btn {
+    font-size: 2rem;
+  }
+}
+
+.about {
+  margin: 2rem 0;
+  text-align: left;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 70vh;
+}

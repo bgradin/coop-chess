@@ -1,12 +1,10 @@
 import { Auth } from './auth';
-import { GameCtrl } from './game';
+import { GameCtrl } from './game2';
 import { Page } from './interfaces';
-import { Stream } from './ndJsonStream';
 import OngoingGames from './ongoingGames';
 
 export class Navigation {
   auth: Auth = new Auth();
-  stream?: Stream;
   page: Page = 'home';
   games = new OngoingGames();
   game?: GameCtrl;
@@ -16,21 +14,7 @@ export class Navigation {
   openHome = async () => {
     this.page = 'home';
     if (this.auth.me) {
-      await this.stream?.close();
       this.games.empty();
-      this.stream = await this.auth.openStream('/api/stream/event', {}, msg => {
-        switch (msg.type) {
-          case 'gameStart':
-            this.games.onStart(msg.game);
-            break;
-          case 'gameFinish':
-            this.games.onFinish(msg.game);
-            break;
-          default:
-            console.warn(`Unprocessed message of type ${msg.type}`, msg);
-        }
-        this.redraw();
-      });
     }
     this.redraw();
   };

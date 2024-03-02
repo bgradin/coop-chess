@@ -1,4 +1,3 @@
-import { jsx } from "snabbdom";
 import { Color } from 'chessground/types';
 import { opposite } from 'chessground/util';
 import { GameCtrl } from '../game';

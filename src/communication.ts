@@ -1,0 +1,28 @@
+export enum StatusCode {
+  BadRequest = 400,
+  NotFound = 404,
+  Error = 500,
+  Ok = 200,
+}
+
+export abstract class Response {
+  abstract status: StatusCode;
+}
+
+export class ErrorResponse extends Response {
+  readonly status: StatusCode = StatusCode.Error;
+}
+
+export class BadRequestResponse extends ErrorResponse {
+  readonly status: StatusCode = StatusCode.BadRequest;
+}
+
+export class NotFoundResponse extends ErrorResponse {
+  readonly status: StatusCode = StatusCode.NotFound;
+}
+
+export class OkResponse extends Response {
+  readonly status: StatusCode = StatusCode.Ok;
+}
+
+export type Callback = (response: Response) => void;

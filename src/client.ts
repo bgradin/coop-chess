@@ -1,6 +1,6 @@
 import { init, attributesModule, classModule, datasetModule, eventListenersModule, propsModule } from 'snabbdom';
 import { Navigation } from './navigation';
-import view, { loadingBody } from './view/app';
+import view, { loadingBody } from './views/app';
 import '../scss/_bootstrap.scss';
 import '../scss/style.scss';
 import '../node_modules/bootstrap/js/dist/dropdown.js';

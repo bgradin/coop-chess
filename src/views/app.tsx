@@ -1,4 +1,4 @@
-import { jsx, VNode } from 'snabbdom';
+import { VNode } from 'snabbdom';
 import { Navigation } from '../navigation';
 import { Renderer } from '../interfaces';
 import layout from './layout';

@@ -1,5 +1,3 @@
-import { jsx } from "snabbdom";
-
 export const clockContent = (time?: number, decay?: number) => {
   if (!time && time !== 0) return <span>-</span>;
   if (time == 2147483647) return <span></span>;

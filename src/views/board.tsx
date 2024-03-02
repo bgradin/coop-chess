@@ -1,6 +1,6 @@
 import { Chessground } from 'chessground';
 import { Color } from 'chessops';
-import { jsx, VNode } from 'snabbdom';
+import { VNode } from 'snabbdom';
 import { BoardCtrl } from '../game';
 
 export const renderBoard = (ctrl: BoardCtrl) =>

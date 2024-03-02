@@ -1,4 +1,3 @@
-import { jsx } from "snabbdom";
 import { Chessground } from 'chessground';
 import { Navigation } from '../navigation';
 import { Game, Renderer } from '../interfaces';

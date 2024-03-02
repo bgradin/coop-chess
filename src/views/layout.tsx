@@ -1,4 +1,4 @@
-import { jsx, VNode } from "snabbdom";
+import { VNode } from "snabbdom";
 import { Me } from '../auth';
 import { Navigation } from '../navigation';
 import { MaybeVNodes } from '../interfaces';

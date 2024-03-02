@@ -9,5 +9,8 @@
     "lib": ["DOM", "ES2019"],
     "jsx": "react-jsx",
     "jsxImportSource": "@herp-inc/snabbdom-jsx"
+  },
+  "ts-node": {
+    "esm": true
   }
 }

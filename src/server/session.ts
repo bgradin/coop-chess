@@ -1,10 +1,10 @@
 import { EventEmitter } from "node:events";
 import { Socket } from "socket.io";
-import { Events } from "./events";
-import { GameConfiguration } from "./game";
+import { Events } from "../events";
+import { GameConfiguration } from "../game";
 import { Lobby } from "./lobby";
-import { PlayerIdentity } from "./player";
-import { BadRequestResponse, Callback, ErrorResponse, OkResponse } from "./communication";
+import { PlayerIdentity } from "../player";
+import { BadRequestResponse, Callback, OkResponse } from "../communication";
 import { validateDto } from "./validation";
 
 export enum SessionEvents {

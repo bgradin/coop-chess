@@ -1,0 +1,11 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "module": "nodenext",
+    "moduleResolution": "nodenext"
+  },
+  "exclude": [],
+  "ts-node": {
+    "esm": true
+  }
+}

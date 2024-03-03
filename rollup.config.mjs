@@ -6,11 +6,11 @@ import sass from 'sass';
 import { terser } from 'rollup-plugin-terser';
 
 export default args => ({
-  input: 'src/client.ts',
+  input: 'src/client/index.tsx',
   output: {
     file: args['config-prod'] ? 'dist/index.min.js' : 'index.js',
     format: 'iife',
-    name: 'CoopChess',
+    name: 'main',
     plugins: args['config-prod']
       ? [
           terser({

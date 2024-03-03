@@ -1,5 +1,5 @@
 export interface PlayerIdentity {
-  lid: string; // Lichess ID
-  name: string;
+  id: string;
+  username: string;
   active: boolean;
 }

@@ -10,7 +10,7 @@
     "jsx": "react-jsx",
     "jsxImportSource": "@herp-inc/snabbdom-jsx"
   },
-  "ts-node": {
-    "esm": true
-  }
+  "exclude": [
+    "src/server/**/*"
+  ]
 }

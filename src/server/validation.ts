@@ -1,10 +1,10 @@
 import fs from "fs";
 import path from "path";
 import { validate } from "jsonschema";
-import { GameConfiguration } from "./game";
-import { ClockMode } from "./clock";
+import { GameConfiguration } from "../game";
+import { ClockMode } from "../clock";
 
-const dtoFilePath = path.resolve(__dirname, "./dto.json");
+const dtoFilePath = path.resolve(__dirname, "../dto.json");
 
 if (!fs.existsSync(dtoFilePath)) {
   throw new Error("DTO file does not exist!");

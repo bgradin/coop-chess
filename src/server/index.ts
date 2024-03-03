@@ -1,9 +1,9 @@
 import { Server as SocketServer } from 'socket.io';
 import { Lobby } from './lobby';
 import { Session, SessionEvents } from './session';
-import { Game } from './game';
-import { Events } from './events';
-import { PlayerIdentity } from './player';
+import { Game } from '../game';
+import { Events } from '../events';
+import { PlayerIdentity } from '../player';
 import { validateDto } from './validation';
 
 const PORT = 3000;

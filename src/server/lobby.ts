@@ -1,8 +1,8 @@
 import { EventEmitter } from "node:events";
-import { BadRequestResponse, NotFoundResponse, OkResponse, Response } from "./communication";
-import { Game, GameConfiguration } from "./game";
+import { BadRequestResponse, NotFoundResponse, OkResponse, Response } from "../communication";
+import { Game, GameConfiguration } from "../game";
 import { validateConfig } from "./validation";
-import { PlayerIdentity } from "./player";
+import { PlayerIdentity } from "../player";
 
 class GameStateResponse extends OkResponse {
   readonly game: Game;
@@ -35,7 +35,7 @@ export class Lobby extends EventEmitter {
       return new BadRequestResponse();
     }
 
-    if (this.#games.some(game => game.host.lid === host.lid)) {
+    if (this.#games.some(game => game.host.id === host.id)) {
       return new BadRequestResponse();
     }
 
@@ -54,7 +54,7 @@ export class Lobby extends EventEmitter {
       return new NotFoundResponse();
     }
 
-    const player = game.players.find(p => p.lid === playerId.lid);
+    const player = game.players.find(p => p.id === playerId.id);
     if (!player) {
       game.players.push(playerId);
     }

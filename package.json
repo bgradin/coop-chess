@@ -37,6 +37,6 @@
     "watch": "rollup --config --watch",
     "prod": "rollup --config --config-prod",
     "serve": "http-server",
-    "server": "TS_NODE_COMPILER_OPTIONS='{\"module\":\"nodenext\"}' npx ts-node src/server.ts"
+    "server": "npx ts-node --project src/server/tsconfig.json src/server/index.ts"
   }
 }

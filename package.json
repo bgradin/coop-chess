@@ -22,7 +22,6 @@
     "@rollup/plugin-commonjs": "^21",
     "@rollup/plugin-node-resolve": "^13.3.0",
     "@rollup/plugin-typescript": "^8",
-    "@types/base64id": "^2.0.2",
     "@types/page": "^1",
     "http-server": "^14",
     "prettier": "^2",

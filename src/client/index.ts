@@ -3,12 +3,13 @@ import '../../scss/_bootstrap.scss';
 import '../../scss/style.scss';
 import '../../node_modules/bootstrap/js/dist/dropdown.js';
 import '../../node_modules/bootstrap/js/dist/collapse.js';
-import { Routes } from "./routes";
 import { Router } from './router';
 import { Auth, AuthEvents } from './auth';
 import { Events } from '../events';
 import { Response, StatusCode } from '../communication';
-import { url } from "./helpers"
+import { showGenericError } from "./helpers"
+import { Lobby } from "./lobby";
+import { Routes } from "./routes";
 
 const SERVER_DOMAIN = `${location.hostname}:3000/`;
 
@@ -30,12 +31,18 @@ class Client {
             this.#router.renderGenericError();
           });
       });
+
+      this.#socket.on("disconnect", () => {
+        this.#auth.loading = true;
+        this.#router.redraw();
+      });
     });
 
     this.#auth.addEventListener(AuthEvents.Unauthenticated, () => {
       this.#socket?.close();
       this.#socket = undefined;
-      window.location.href = url("/");
+      this.#router.setLobby(undefined);
+      page.show(Routes.Home);
     });
 
     this.#auth.init()
@@ -55,10 +62,11 @@ class Client {
       }
 
       this.#socket.emit(Events.Identify, this.#auth.identity, (res: Response) => {
-        if (res.status !== StatusCode.Ok) {
-          window.location.href = url(Routes.Error);
+        if (res.status !== StatusCode.Ok || !this.#socket) {
+          showGenericError();
         } else {
           this.#auth.loading = false;
+          this.#router.setLobby(new Lobby(this.#socket));
           this.#router.redraw();
           resolve();
         }

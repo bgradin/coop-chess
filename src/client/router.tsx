@@ -8,7 +8,7 @@ import { NotFoundPage } from "./views/notFoundPage";
 import { GenericErrorPage } from "./views/genericErrorPage";
 import { LoadingPage } from "./views/loadingPage";
 import { BASE_PATH } from "./constants";
-import { url } from "./helpers"
+import { Lobby, LobbyEvents } from "./lobby";
 
 const patch = init([
   attributesModule,
@@ -23,11 +23,12 @@ export class Router {
   #page: string = "home";
   #oldNode: VNode | Element;
   #initialized: Boolean = false;
-
+  #lobby?: Lobby;
 
   constructor(auth: Auth, root: Element) {
     this.#auth = auth;
     this.#oldNode = root;
+    this.redraw = this.redraw.bind(this);
   }
 
   init() {
@@ -44,7 +45,7 @@ export class Router {
 
     page(Routes.Login, async _ => {
       if (this.#auth.identity) {
-        window.location.href = url("/");
+        page.show(Routes.Home);
       } else {
         this.#auth.login();
       }
@@ -52,7 +53,7 @@ export class Router {
 
     page(Routes.Logout, async _ => {
       this.#auth.logout().then(() => {
-        window.location.href = url("/");
+        page.show(Routes.Home);
       });
     });
 
@@ -69,12 +70,22 @@ export class Router {
       this.redraw();
     });
 
-    page({ hashbang: true });
+    page({ hashbang: true, click: false });
     this.#initialized = true;
   }
 
   renderGenericError() {
     this.#render(<GenericErrorPage />);
+  }
+
+  setLobby(lobby?: Lobby) {
+    this.#lobby?.removeEventListener(LobbyEvents.Updated, this.redraw);
+    this.#lobby = undefined;
+
+    if (lobby) {
+      this.#lobby = lobby;
+      this.#lobby.addEventListener(LobbyEvents.Updated, this.redraw);
+    }
   }
 
   #getCurrentView() {
@@ -84,8 +95,8 @@ export class Router {
           return <LoadingPage />
         }
 
-        return this.#auth.identity
-          ? <AuthenticatedHomePage games={[]} />
+        return this.#auth.identity && this.#lobby
+          ? <AuthenticatedHomePage lobby={this.#lobby} />
           : <UnauthenticatedHomePage />;
       case "error":
         return <GenericErrorPage />

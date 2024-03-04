@@ -4,6 +4,8 @@ import { Game, GameConfiguration } from "../game";
 import { validateConfig } from "./validation";
 import { PlayerIdentity } from "../player";
 
+const base64id = require("base64id");
+
 export type GameUpdateFn = (game: Game) => void;
 
 export enum LobbyEvents {
@@ -29,7 +31,7 @@ export class Lobby extends EventEmitter {
       return new BadRequestResponse();
     }
 
-    const game = new Game(config, host);
+    const game = new Game(base64id.generateId(), config, host);
     this.#games.push(game);
     return new GameStateResponse(game);
   }

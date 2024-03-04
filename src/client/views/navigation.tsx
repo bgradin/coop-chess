@@ -19,7 +19,7 @@ export function Navigation(
           <span className="mx-3 user-select-none">&#8226;</span>
           <a href={url("/")}>Home</a>
           <span className="mx-3 user-select-none">&#8226;</span>
-          <a className="github-logo" href="https://github.com/bgradin/coop-chess">
+          <a className="github-logo" href="https://github.com/bgradin/coop-chess" target="_blank">
             <img src={githubLogo} alt="GitHub logo" />
           </a>
         </div>

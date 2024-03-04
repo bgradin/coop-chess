@@ -1,4 +1,3 @@
-import { generateId } from "base64id";
 import { ClockMode } from "./clock";
 import { PlayerIdentity } from "./player";
 
@@ -14,13 +13,14 @@ export interface GameConfiguration {
 }
 
 export class Game {
-  readonly id: string = generateId();
+  readonly id: string;
   readonly host: PlayerIdentity;
   readonly config: GameConfiguration;
   readonly players: PlayerIdentity[] = [];
   started: boolean = false;
 
-  constructor(config: GameConfiguration, host: PlayerIdentity) {
+  constructor(id: string,config: GameConfiguration, host: PlayerIdentity) {
+    this.id = id;
     this.config = config;
     this.host = host;
     this.players.push(this.host);

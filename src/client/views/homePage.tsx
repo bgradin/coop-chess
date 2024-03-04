@@ -1,13 +1,14 @@
 import { Game } from '../../game';
 import { url } from '../helpers';
+import { Lobby } from '../lobby';
 
 interface AuthenticatedHomePageProps {
-  games: Game[];
+  lobby: Lobby
 }
 
 export function AuthenticatedHomePage(
   {
-    games,
+    lobby,
   }: AuthenticatedHomePageProps
 ) {
   return (
@@ -15,16 +16,16 @@ export function AuthenticatedHomePage(
       <About />
       <Rules />
       <div className='btn-group mt-5'>
-        <button className='btn btn-outline-primary btn-lg' type='button' onclick={() => { alert('New game!') }}>
+        <button className='btn btn-outline-primary btn-lg' type='button' onclick={lobby.createGame}>
           Create game
         </button>
-        <button className='btn btn-outline-primary btn-lg' type='button' onclick={() => {}}>
+        <button className='btn btn-outline-primary btn-lg' type='button' onclick={lobby.joinGame}>
           Join game
         </button>
       </div>
       <h2 className='mt-5'>Active games</h2>
       <div className='games'>
-        <ActiveGames games={games} />
+        <ActiveGames games={lobby.games} />
       </div>
     </div>
   );

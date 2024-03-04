@@ -1,6 +1,6 @@
 import fs from "fs";
 import path from "path";
-import { validate } from "jsonschema";
+import { Validator } from "jsonschema";
 import { GameConfiguration } from "../game";
 import { ClockMode } from "../clock";
 
@@ -15,12 +15,15 @@ if (typeof schema.definitions !== "object") {
   throw new Error("Invalid DTO file!");
 }
 
+const validator = new Validator();
+validator.addSchema(schema);
+
 export function validateDto(dto: any, type: string): boolean {
   if (!schema.definitions[type]) {
     return false;
   }
 
-  const result = validate(dto, schema.definitions[type]);
+  const result = validator.validate(dto, schema.definitions[type]);
   return result.valid;
 }
 

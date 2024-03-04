@@ -4,7 +4,12 @@
     "module": "nodenext",
     "moduleResolution": "nodenext"
   },
-  "exclude": [],
+  "include": [
+    "../**/*.ts"
+  ],
+  "exclude": [
+    "../client/**/*"
+  ],
   "ts-node": {
     "esm": true
   }

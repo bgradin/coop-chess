@@ -10,17 +10,17 @@ if (!fs.existsSync(dtoFilePath)) {
   throw new Error("DTO file does not exist!");
 }
 
-const dto = JSON.parse(fs.readFileSync(dtoFilePath, "utf8"));
-if (!dto.definitions) {
+const schema = JSON.parse(fs.readFileSync(dtoFilePath, "utf8"));
+if (typeof schema.definitions !== "object") {
   throw new Error("Invalid DTO file!");
 }
 
 export function validateDto(dto: any, type: string): boolean {
-  if (!dto.definitions[type]) {
+  if (!schema.definitions[type]) {
     return false;
   }
 
-  const result = validate(dto, dto.definitions[type]);
+  const result = validate(dto, schema.definitions[type]);
   return result.valid;
 }
 

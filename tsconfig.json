@@ -10,6 +10,10 @@
     "jsx": "react-jsx",
     "jsxImportSource": "@herp-inc/snabbdom-jsx"
   },
+  "include": [
+    "src/**/*.ts",
+    "node_modules/@bity/oauth2-auth-code-pkce/*.ts"
+  ],
   "exclude": [
     "src/server/**/*"
   ]

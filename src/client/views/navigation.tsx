@@ -1,5 +1,6 @@
 import { PlayerIdentity } from "../../player";
-import { url } from "../routing";
+import { url } from "../helpers";
+import githubLogo from "./images/github-mark-white.svg";
 
 interface NavigationProps {
   identity?: PlayerIdentity
@@ -13,7 +14,15 @@ export function Navigation(
   return (
     <header className='navbar navbar-expand-md navbar-dark bg-dark'>
       <div className='container'>
-        <a className='navbar-brand' href={url('/')}>Coop Chess</a>
+        <div className="navbar-brand">
+          <h1 className="h3 d-inline m-0">Coop Chess</h1>
+          <span className="mx-3 user-select-none">&#8226;</span>
+          <a href={url("/")}>Home</a>
+          <span className="mx-3 user-select-none">&#8226;</span>
+          <a className="github-logo" href="https://github.com/bgradin/coop-chess">
+            <img src={githubLogo} alt="GitHub logo" />
+          </a>
+        </div>
         <button
           className='navbar-toggler'
           type='button'

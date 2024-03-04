@@ -1,33 +1,50 @@
 import { Server as SocketServer } from 'socket.io';
 import { Lobby } from './lobby';
+import { log } from "./logging";
 import { Session, SessionEvents } from './session';
 import { Game } from '../game';
 import { Events } from '../events';
-import { PlayerIdentity } from '../player';
-import { validateDto } from './validation';
 
 const PORT = 3000;
 const PRODUCTION_ORIGIN = "http://chess.gradinware.com";
-const LOCALHOST_ORIGIN = "http://localhost";
+const LOCALHOST_ORIGIN = "http://localhost:8080";
 
-const io = new SocketServer({
-  cors: {
-    origin: process.env.PRODUCTION ? PRODUCTION_ORIGIN : LOCALHOST_ORIGIN,
-  }
+log.info("Application started.");
+
+function handleUnhandledError(error: Error) {
+  log.error(`${error.name}: ${error.message}` + (error.stack ? "\n" + error.stack : ""));
+}
+
+process.on("uncaughtException", handleUnhandledError);
+process.on("unhandledRejection", handleUnhandledError);
+
+process.on("exit", (code) => {
+  log.info(`Application exited with code ${code}`);
 });
-const lobby = new Lobby(
-  (game: Game) => {
-    io.to(game.id).emit(Events.GameUpdated, game);
-  }
-);
+
+process.on("SIGINT", () => {
+  log.info("Application received SIGINT.");
+  process.exit(0);
+});
+
+const origin = process.env.PRODUCTION ? PRODUCTION_ORIGIN : LOCALHOST_ORIGIN;
+log.info(`Starting socket server with allowed origin: ${origin}`);
 
 class Server {
-  #io: SocketServer;
+  readonly #io: SocketServer = new SocketServer({
+    cors: {
+      origin,
+      methods: [ "GET", "POST" ],
+    },
+  });
+  readonly #lobby: Lobby = new Lobby(
+    (game: Game) => {
+      this.#io.to(game.id).emit(Events.GameUpdated, game);
+    }
+  );
   #sessions: Session[] = [];
 
   constructor() {
-    this.#io = new SocketServer();
-
     this.#registerEvents();
   }
 
@@ -39,16 +56,16 @@ class Server {
   }
 
   #registerEvents() {
-    io.on("connection", (socket) => {
-      socket.emit(Events.Identify, (id: PlayerIdentity) => {
-        if (!validateDto(id, "PlayerIdentityDto")) {
-          socket.emit(Events.Error);
-        } else {
-          const session = new Session(socket, lobby, id);
-          this.#sessions.push(session);
+    this.#io.on("connection", (socket) => {
+      const session = new Session(socket, this.#lobby);
+      this.#sessions.push(session);
 
-          session.on(SessionEvents.Close, () => this.#endSession(session));
-        }
+      log.info(`Session created: socket ${socket.id}`);
+
+      session.on(SessionEvents.Close, () => {
+        log.info(`Session ended: socket ${socket.id}`)
+
+        this.#endSession(session);
       });
     });
   }

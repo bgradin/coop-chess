@@ -4,6 +4,7 @@
   "dependencies": {
     "@bity/oauth2-auth-code-pkce": "^2",
     "@herp-inc/snabbdom-jsx": "^0.14.0",
+    "app-root-path": "^3.1.0",
     "base64id": "^2.0.0",
     "bootstrap": "^5",
     "chessground": "^8.2.1",
@@ -13,11 +14,13 @@
     "snabbdom": "3.5.1",
     "socket.io": "^4.7.4",
     "socket.io-client": "^4.7.4",
-    "ts-node": "^10.9.2"
+    "ts-node": "^10.9.2",
+    "winston": "^3.11.0",
+    "winston-daily-rotate-file": "^5.0.0"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^21",
-    "@rollup/plugin-node-resolve": "^13",
+    "@rollup/plugin-node-resolve": "^13.3.0",
     "@rollup/plugin-typescript": "^8",
     "@types/base64id": "^2.0.2",
     "@types/page": "^1",
@@ -25,6 +28,7 @@
     "prettier": "^2",
     "rollup": "^2",
     "rollup-plugin-scss": "^3",
+    "rollup-plugin-svg": "^2.0.0",
     "rollup-plugin-terser": "^7.0.2",
     "sass": "^1",
     "tslib": "^2",
@@ -32,7 +36,7 @@
     "typescript-json-schema": "^0.63.0"
   },
   "scripts": {
-    "build-dto": "npx typescript-json-schema --skipLibCheck 'src/dto.ts' '*' --out 'src/dto.json' --required",
+    "dto": "npx typescript-json-schema --skipLibCheck 'src/dto.ts' '*' --out 'src/dto.json' --required",
     "build": "rollup --config",
     "watch": "rollup --config --watch",
     "prod": "rollup --config --config-prod",

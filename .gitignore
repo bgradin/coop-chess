@@ -4,3 +4,4 @@ dist/style.min.css
 src/dto.json
 index.js
 style.css
+logs/

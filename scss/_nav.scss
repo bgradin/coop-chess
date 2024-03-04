@@ -1,3 +1,21 @@
 #navbarSupportedContent {
   justify-content: flex-end;
 }
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+
+  a {
+    color: #fff;
+    text-decoration: none;
+  
+    &:hover {
+      opacity: 0.7;
+    }
+  
+    &.github-logo img {
+      height: 26px;
+    }
+  }
+}

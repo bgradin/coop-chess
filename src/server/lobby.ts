@@ -1,18 +1,8 @@
 import { EventEmitter } from "node:events";
-import { BadRequestResponse, NotFoundResponse, OkResponse, Response } from "../communication";
+import { BadRequestResponse, NotFoundResponse, GameStateResponse, Response } from "../communication";
 import { Game, GameConfiguration } from "../game";
 import { validateConfig } from "./validation";
 import { PlayerIdentity } from "../player";
-
-class GameStateResponse extends OkResponse {
-  readonly game: Game;
-
-  constructor(game: Game) {
-    super();
-
-    this.game = game;
-  }
-}
 
 export type GameUpdateFn = (game: Game) => void;
 

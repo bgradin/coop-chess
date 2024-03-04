@@ -1,3 +1,5 @@
+import { Game } from "./game";
+
 export enum StatusCode {
   BadRequest = 400,
   NotFound = 404,
@@ -23,6 +25,26 @@ export class NotFoundResponse extends ErrorResponse {
 
 export class OkResponse extends Response {
   readonly status: StatusCode = StatusCode.Ok;
+}
+
+export class DataResponse<T> extends OkResponse {
+  readonly data: T;
+
+  constructor(data: T) {
+    super();
+
+    this.data = data;
+  }
+}
+
+export class GameStateResponse extends OkResponse {
+  readonly game: Game;
+
+  constructor(game: Game) {
+    super();
+
+    this.game = game;
+  }
 }
 
 export type Callback = (response: Response) => void;

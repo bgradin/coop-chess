@@ -1,5 +1,5 @@
 import { Game } from '../../game';
-import { url } from '../routing';
+import { url } from '../helpers';
 
 interface AuthenticatedHomePageProps {
   games: Game[];
